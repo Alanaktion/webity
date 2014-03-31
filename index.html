@@ -29,37 +29,14 @@ html,body {
 <script type="text/javascript">
 var ed=document.getElementById("e"),ls=window.localStorage;
 
-// Load previous state
-if (ls["editData"]) {
-	ed.value=ls["editData"];
-}
-if(ls["editPos0"]) {
-	setPos(ed,ls["editPos0"],ls["editPos1"]);
-}
+// Load previous state if available
+if(ls["editData"]){ed.value=ls["editData"];}
 
 // Save state with each keystroke
-ed.addEventListener("keyup", function() {
+ed.addEventListener("keyup",function(){
 	ls["editData"]=ed.value;
-	var p=getPos(ed);
-	if(typeof p.start=="object") {
-		ls["editPos0"]=p.start;
-		ls["editPos1"]=p.end;
-	}
 });
 
-// Cursor position functions
-// http://stackoverflow.com/a/7745998/873843
-function getPos(e){if("selectionStart"in e&&document.activeElement==e){return{
-start:e.selectionStart,end:e.selectionEnd}}else if(e.createTextRange){var t=
-document.selection.createRange();if(t.parentElement()===e){var n=e.
-createTextRange();n.moveToBookmark(t.getBookmark());for(var r=0;n.
-compareEndPoints("EndToStart",n)>0;n.moveEnd("character",-1)){r++}n.setEndPoint
-("StartToStart",e.createTextRange());for(var i={start:0,end:r};n.
-compareEndPoints("EndToStart",n)>0;n.moveEnd("character",-1)){i.start++;i.end++
-}return i}}return-1}function setPos(e,t,n){if(arguments.length<3)n=t;if(
-"selectionStart"in e){setTimeout(function(){e.selectionStart=t;e.selectionEnd=n
-},1)}else if(e.createTextRange){var r=e.createTextRange();r.moveStart(
-"character",t);r.collapse();r.moveEnd("character",n-t);r.select()}}
 </script>
 </body>
 </html>
