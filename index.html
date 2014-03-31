@@ -3,34 +3,20 @@
 <html>
 <head>
 <title>Edit</title>
-<style type="text/css">
-html,body {
-	margin: 0;
-	padding: 0;
-	height: 100%;
-	overflow: hidden;
-}
-#e {
-	box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	width: 100%;
-	height: 100%;
-	margin: 0;
-	padding: 10px 5px;
-	border: none;
-	background-color: #333;
-	color: #f5f5f5;
-	resize: none;
-}
-</style>
+<link rel="stylesheet" href="index.css">
 </head>
 <body>
 <textarea id="e" autofocus></textarea>
+<script src="jquery-1.8.0.min.js"></script>
+<script src="jquery-lta.min.js"></script>
 <script type="text/javascript">
 var ed=document.getElementById("e"),ls=window.localStorage;
 
 // Load previous state if available
 if(ls["editData"]){ed.value=ls["editData"];}
+
+// Enable line numbers
+$(ed).linedtextarea({selectedClass:'sel'});
 
 // Save state with each keystroke
 ed.addEventListener("keyup",function(){
